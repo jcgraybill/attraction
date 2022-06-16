@@ -1,2 +1,5 @@
 # m
- Ebitengine Game Jam - https://itch.io/jam/ebiten-game-jam
+ 
+ Game in development for the Ebitengine Game Jam - https://itch.io/jam/ebiten-game-jam
+
+ 
