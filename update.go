@@ -6,63 +6,90 @@ import (
 )
 
 func (g *Game) Update() error {
-	if movePiece() {
-		block.opts.GeoM.Reset()
-		block.opts.GeoM.Translate(float64(w*1/12+(block.cellX*w*1/6)), float64(w*1/12+(block.cellY*w*1/6)))
-		gem.opts.GeoM.Reset()
-		gem.opts.GeoM.Translate(float64(w*1/12+(gem.cellX*w*1/6)), float64(w*1/12+(gem.cellY*w*1/6)))
+	if handleKeyPress() {
+		updateLocations()
 	}
 	return nil
 }
 
-func movePiece() bool {
-	if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) && block.cellX < 4 {
-		block.cellX += 1
-		if gem.cellX == block.cellX && gem.cellY == block.cellY {
-			if gem.cellX >= 4 {
-				block.cellX -= 1
-				return false
-			} else {
-				gem.cellX += 1
+func handleKeyPress() bool {
+	redraw := false
+	if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) {
+		for _, p := range pieces {
+			if p.magnetic {
+				move(p, 1, 0)
+				redraw = true
 			}
 		}
-		return true
 	}
-	if inpututil.IsKeyJustPressed(ebiten.KeyArrowLeft) && block.cellX > 0 {
-		block.cellX -= 1
-		if gem.cellX == block.cellX && gem.cellY == block.cellY {
-			if gem.cellX <= 0 {
-				block.cellX += 1
-				return false
-			} else {
-				gem.cellX -= 1
+
+	if inpututil.IsKeyJustPressed(ebiten.KeyArrowLeft) {
+		for _, p := range pieces {
+			if p.magnetic {
+				move(p, -1, 0)
+				redraw = true
 			}
 		}
-		return true
 	}
-	if inpututil.IsKeyJustPressed(ebiten.KeyArrowUp) && block.cellY > 0 {
-		block.cellY -= 1
-		if gem.cellX == block.cellX && gem.cellY == block.cellY {
-			if gem.cellY <= 0 {
-				block.cellY += 1
-				return false
-			} else {
-				gem.cellY -= 1
+
+	if inpututil.IsKeyJustPressed(ebiten.KeyArrowDown) {
+		for _, p := range pieces {
+			if p.magnetic {
+				move(p, 0, 1)
+				redraw = true
 			}
 		}
-		return true
 	}
-	if inpututil.IsKeyJustPressed(ebiten.KeyArrowDown) && block.cellY < 4 {
-		block.cellY += 1
-		if gem.cellX == block.cellX && gem.cellY == block.cellY {
-			if gem.cellY >= 4 {
-				block.cellY -= 1
-				return false
-			} else {
-				gem.cellY += 1
+
+	if inpututil.IsKeyJustPressed(ebiten.KeyArrowUp) {
+		for _, p := range pieces {
+			if p.magnetic {
+				move(p, 0, -1)
+				redraw = true
 			}
 		}
-		return true
 	}
-	return false
+
+	return redraw
+
+}
+
+func move(p *Piece, x, y int) bool {
+	if !p.moveable {
+		return false
+	}
+
+	if p.destX = p.cellX + x; p.destX < 0 || p.destX >= cells {
+		p.destX = p.cellX
+		return false
+	}
+
+	if p.destY = p.cellY + y; p.destY < 0 || p.destY >= cells {
+		p.destY = p.cellY
+		return false
+	}
+
+	for _, q := range pieces {
+		if p != q {
+			if p.destX == q.destX && p.destY == q.destY {
+				if move(q, x, y) {
+					return true
+				} else {
+					p.destX = p.cellX
+					p.destY = p.cellY
+					return false
+				}
+			}
+		}
+	}
+	return true
+}
+
+func updateLocations() {
+	for _, p := range pieces {
+		p.cellX = p.destX
+		p.cellY = p.destY
+		p.opts.GeoM.Reset()
+		p.opts.GeoM.Translate(float64((w-bs)/2+p.cellX*bs/cells), float64((w-bs)/2+p.cellY*bs/cells))
+	}
 }

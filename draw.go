@@ -6,6 +6,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	screen.Fill(bg)
 
 	screen.DrawImage(board, boardOpts)
-	screen.DrawImage(gem.img, gem.opts)
-	screen.DrawImage(block.img, block.opts)
+
+	for _, p := range pieces {
+		screen.DrawImage(p.img, p.opts)
+	}
 }

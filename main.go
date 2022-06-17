@@ -8,7 +8,7 @@ type Game struct{}
 
 func main() {
 	ebiten.SetWindowTitle("m")
-	ebiten.SetWindowSize(w, w*1.6)
+	ebiten.SetWindowSize(w, w)
 
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		panic(err)
@@ -16,5 +16,5 @@ func main() {
 }
 
 func (g *Game) Layout(int, int) (int, int) {
-	return w, w * 1.6
+	return w, w
 }
