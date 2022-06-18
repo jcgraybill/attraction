@@ -94,7 +94,7 @@ func updateLocations() {
 		p.currentX = p.x
 		p.currentY = p.y
 		p.opts.GeoM.Reset()
-		p.opts.GeoM.Translate(float64((w-bs)/2+p.currentX*bs/level.cells), float64((w-bs)/2+p.currentY*bs/level.cells))
+		p.opts.GeoM.Translate(float64((w-bs)/2+p.currentX*bs/level.cells), float64((h-bs)/2+p.currentY*bs/level.cells))
 	}
 }
 

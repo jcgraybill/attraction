@@ -16,6 +16,6 @@ func generateBoardImage(cells int) (*ebiten.Image, *ebiten.DrawImageOptions) {
 
 	dc.Stroke()
 	bo := &ebiten.DrawImageOptions{}
-	bo.GeoM.Translate(float64((w-bs)/2), float64((w-bs)/2))
+	bo.GeoM.Translate(float64((w-bs)/2), float64((h-bs)/2))
 	return ebiten.NewImageFromImage(dc.Image()), bo
 }

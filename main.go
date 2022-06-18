@@ -1,14 +1,23 @@
 package main
 
 import (
+	"image/color"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
+
+const w = 400
+const h = 480
+const bs = 360
+
+var bg = color.White
+var fg = color.Black
 
 type Game struct{}
 
 func main() {
 	ebiten.SetWindowTitle("m")
-	ebiten.SetWindowSize(w, w)
+	ebiten.SetWindowSize(w, h)
 
 	level = level01
 	load()
@@ -19,5 +28,5 @@ func main() {
 }
 
 func (g *Game) Layout(int, int) (int, int) {
-	return w, w
+	return w, h
 }
