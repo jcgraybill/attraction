@@ -37,5 +37,16 @@ func generateBlockImage() *ebiten.Image {
 	dc.DrawRectangle(float64(0.1*bs/cells), float64(0.1*bs/cells), float64((bs/cells)-(0.2*bs/cells)), float64((bs/cells)-(0.2*bs/cells)))
 	dc.SetRGBA255(64, 64, 64, 255)
 	dc.Fill()
+	dc.DrawRectangle(float64(0.2*bs/cells), float64(0.2*bs/cells), float64((bs/cells)-(0.4*bs/cells)), float64((bs/cells)-(0.4*bs/cells)))
+	dc.SetColor(bg)
+	dc.Fill()
+	return ebiten.NewImageFromImage(dc.Image())
+}
+
+func generatePostImage() *ebiten.Image {
+	dc := gg.NewContext(bs/cells, bs/cells)
+	dc.DrawRectangle(float64(0.1*bs/cells), float64(0.1*bs/cells), float64((bs/cells)-(0.2*bs/cells)), float64((bs/cells)-(0.2*bs/cells)))
+	dc.SetRGBA255(64, 64, 64, 255)
+	dc.Fill()
 	return ebiten.NewImageFromImage(dc.Image())
 }

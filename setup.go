@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	pieces = make([]*Piece, 5)
+	pieces = make([]*Piece, 6)
 
 	pieces[0] = &Piece{}
 	pieces[0].img = generateGemImage(color.RGBA{R: 255, G: 0, B: 0, A: 128})
@@ -36,9 +36,15 @@ func init() {
 	pieces[3].moveable = true
 
 	pieces[4] = &Piece{}
-	pieces[4].img = generateBlockImage()
+	pieces[4].img = generatePostImage()
 	pieces[4].destX, pieces[4].destY = 1, 3
 	pieces[4].opts = &ebiten.DrawImageOptions{}
+
+	pieces[5] = &Piece{}
+	pieces[5].img = generateBlockImage()
+	pieces[5].destX, pieces[5].destY = 1, 1
+	pieces[5].opts = &ebiten.DrawImageOptions{}
+	pieces[5].moveable = true
 
 	updateLocations()
 }
