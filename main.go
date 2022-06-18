@@ -10,6 +10,9 @@ func main() {
 	ebiten.SetWindowTitle("m")
 	ebiten.SetWindowSize(w, w)
 
+	level = level01
+	load()
+
 	if err := ebiten.RunGame(&Game{}); err != nil {
 		panic(err)
 	}

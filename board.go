@@ -5,14 +5,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-var board *ebiten.Image
-var boardOpts *ebiten.DrawImageOptions
-
-func init() {
-	board, boardOpts = generateBoardImage()
-}
-
-func generateBoardImage() (*ebiten.Image, *ebiten.DrawImageOptions) {
+func generateBoardImage(cells int) (*ebiten.Image, *ebiten.DrawImageOptions) {
 	dc := gg.NewContext(bs, bs)
 	dc.SetColor(fg)
 

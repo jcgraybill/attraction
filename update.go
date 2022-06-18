@@ -8,6 +8,8 @@ import (
 func (g *Game) Update() error {
 	if handleKeyPress() {
 		updateLocations()
+		checkForPiecesOnTarget()
+		checkForLevelComplete()
 	}
 	return nil
 }
@@ -15,7 +17,7 @@ func (g *Game) Update() error {
 func handleKeyPress() bool {
 	redraw := false
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) {
-		for _, p := range pieces {
+		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, 1, 0)
 				redraw = true
@@ -24,7 +26,7 @@ func handleKeyPress() bool {
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowLeft) {
-		for _, p := range pieces {
+		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, -1, 0)
 				redraw = true
@@ -33,7 +35,7 @@ func handleKeyPress() bool {
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowDown) {
-		for _, p := range pieces {
+		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, 0, 1)
 				redraw = true
@@ -42,7 +44,7 @@ func handleKeyPress() bool {
 	}
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowUp) {
-		for _, p := range pieces {
+		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, 0, -1)
 				redraw = true
@@ -59,25 +61,27 @@ func move(p *Piece, x, y int) bool {
 		return false
 	}
 
-	if p.destX = p.cellX + x; p.destX < 0 || p.destX >= cells {
-		p.destX = p.cellX
+	if p.x = p.currentX + x; p.x < 0 || p.x >= level.cells {
+		p.x = p.currentX
 		return false
 	}
 
-	if p.destY = p.cellY + y; p.destY < 0 || p.destY >= cells {
-		p.destY = p.cellY
+	if p.y = p.currentY + y; p.y < 0 || p.y >= level.cells {
+		p.y = p.currentY
 		return false
 	}
 
-	for _, q := range pieces {
+	for _, q := range level.pieces {
 		if p != q {
-			if p.destX == q.destX && p.destY == q.destY {
-				if move(q, x, y) {
-					return true
-				} else {
-					p.destX = p.cellX
-					p.destY = p.cellY
-					return false
+			if !q.tile {
+				if p.x == q.x && p.y == q.y {
+					if move(q, x, y) {
+						return true
+					} else {
+						p.x = p.currentX
+						p.y = p.currentY
+						return false
+					}
 				}
 			}
 		}
@@ -86,10 +90,38 @@ func move(p *Piece, x, y int) bool {
 }
 
 func updateLocations() {
-	for _, p := range pieces {
-		p.cellX = p.destX
-		p.cellY = p.destY
+	for _, p := range level.pieces {
+		p.currentX = p.x
+		p.currentY = p.y
 		p.opts.GeoM.Reset()
-		p.opts.GeoM.Translate(float64((w-bs)/2+p.cellX*bs/cells), float64((w-bs)/2+p.cellY*bs/cells))
+		p.opts.GeoM.Translate(float64((w-bs)/2+p.currentX*bs/level.cells), float64((w-bs)/2+p.currentY*bs/level.cells))
+	}
+}
+
+func checkForPiecesOnTarget() {
+	for _, p := range level.pieces {
+		for _, q := range level.pieces {
+			if p != q && p.currentX == q.currentX && p.currentY == q.currentY && p.color == q.color {
+				p.moveable = false
+			}
+		}
+	}
+}
+
+func checkForLevelComplete() {
+	for _, p := range level.pieces {
+		if p.tile && p.color != nil { // For now, this means it's a target
+			for _, q := range level.pieces {
+				if p != q && p.color == q.color { // it's the matching gem
+					if p.currentX != q.currentX || p.currentY != q.currentY {
+						return // At least one target doesn't have the matching gem on it
+					}
+				}
+			}
+		}
+	}
+	if level.next != nil {
+		level = *level.next
+		load()
 	}
 }
