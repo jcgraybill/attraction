@@ -7,11 +7,14 @@ import (
 )
 
 const w = 400
-const h = 480
+const h = 520
 const bs = 360
 
 var bg = color.White
 var fg = color.Black
+
+var level Level
+var state []*State
 
 type Game struct{}
 

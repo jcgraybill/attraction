@@ -16,10 +16,22 @@ func (g *Game) Update() error {
 
 func handleKeyPress() bool {
 	redraw := false
+	var keypress ebiten.Key
+
+	if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
+		popState(1)
+		return true
+	}
+
+	if level.moves == 0 {
+		return false
+	}
+
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) {
 		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, 1, 0)
+				keypress = ebiten.KeyArrowRight
 				redraw = true
 			}
 		}
@@ -29,6 +41,7 @@ func handleKeyPress() bool {
 		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, -1, 0)
+				keypress = ebiten.KeyArrowLeft
 				redraw = true
 			}
 		}
@@ -38,6 +51,7 @@ func handleKeyPress() bool {
 		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, 0, 1)
+				keypress = ebiten.KeyArrowDown
 				redraw = true
 			}
 		}
@@ -47,11 +61,16 @@ func handleKeyPress() bool {
 		for _, p := range level.pieces {
 			if p.magnetic {
 				move(p, 0, -1)
+				keypress = ebiten.KeyArrowUp
 				redraw = true
 			}
 		}
 	}
 
+	if redraw {
+		pushState(keypress)
+		level.moves -= 1
+	}
 	return redraw
 
 }

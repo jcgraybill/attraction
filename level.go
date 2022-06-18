@@ -6,11 +6,10 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-var level Level
-
 type Level struct {
 	label     string
 	cells     int
+	moves     int
 	pieces    []*Piece
 	board     *ebiten.Image
 	boardOpts *ebiten.DrawImageOptions
@@ -27,11 +26,13 @@ func load() {
 	}
 
 	updateLocations()
-
+	state = make([]*State, 0)
+	pushState(0)
 }
 
 var level01 = Level{
 	label: "level 1",
+	moves: 2,
 	cells: 4,
 	next:  &level02,
 	pieces: []*Piece{
@@ -68,6 +69,7 @@ var level01 = Level{
 
 var level02 = Level{
 	label: "level 2",
+	moves: 6,
 	cells: 5,
 	next:  nil,
 	pieces: []*Piece{
