@@ -17,6 +17,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	}
 
 	text.Draw(screen, level.label, *regular, (w-bs)/2, (h-bs)/2-10, fg)
-	text.Draw(screen, fmt.Sprintf("moves remaining: %d\npress 'esc' to undo", level.moves), *regular, (w-bs)/2, bs+(h-bs)/2+24, fg)
-
+	if len(state) == 1 {
+		text.Draw(screen, fmt.Sprintf("moves remaining: %d", level.moves), *regular, (w-bs)/2, bs+(h-bs)/2+24, fg)
+	} else {
+		text.Draw(screen, fmt.Sprintf("moves remaining: %d\npress 'esc' to undo", level.moves), *regular, (w-bs)/2, bs+(h-bs)/2+24, fg)
+	}
 }
