@@ -10,7 +10,7 @@ import (
 type Piece struct {
 	image                    *ebiten.Image
 	imgsrc                   func() *ebiten.Image
-	color                    color.Color
+	color                    color.RGBA
 	currentX, currentY, x, y int
 	magnetic, moveable, tile bool
 	opts                     *ebiten.DrawImageOptions

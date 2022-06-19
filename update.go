@@ -129,7 +129,7 @@ func checkForPiecesOnTarget() {
 
 func checkForLevelComplete() {
 	for _, p := range level.pieces {
-		if p.tile && p.color != nil { // For now, this means it's a target
+		if p.tile { // For now, this means it's a target
 			for _, q := range level.pieces {
 				if p != q && p.color == q.color { // it's the matching gem
 					if p.currentX != q.currentX || p.currentY != q.currentY {
