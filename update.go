@@ -6,10 +6,18 @@ import (
 )
 
 func (g *Game) Update() error {
-	if handleKeyPress() {
-		updateLocations()
+
+	if g.timer > 0 {
+		g.timer -= 1
+
+		if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
+			g.timer = 0
+		}
+
+	} else if handleKeyPress() {
+		updatePieceLocations()
 		checkForPiecesOnTarget()
-		checkForLevelComplete()
+		checkForLevelComplete(g)
 	}
 	return nil
 }
@@ -30,7 +38,7 @@ func handleKeyPress() bool {
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) {
 		for _, p := range level.pieces {
 			if p.magnetic {
-				move(p, 1, 0)
+				movePiece(p, 1, 0)
 				keypress = ebiten.KeyArrowRight
 				redraw = true
 			}
@@ -40,7 +48,7 @@ func handleKeyPress() bool {
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowLeft) {
 		for _, p := range level.pieces {
 			if p.magnetic {
-				move(p, -1, 0)
+				movePiece(p, -1, 0)
 				keypress = ebiten.KeyArrowLeft
 				redraw = true
 			}
@@ -50,7 +58,7 @@ func handleKeyPress() bool {
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowDown) {
 		for _, p := range level.pieces {
 			if p.magnetic {
-				move(p, 0, 1)
+				movePiece(p, 0, 1)
 				keypress = ebiten.KeyArrowDown
 				redraw = true
 			}
@@ -60,7 +68,7 @@ func handleKeyPress() bool {
 	if inpututil.IsKeyJustPressed(ebiten.KeyArrowUp) {
 		for _, p := range level.pieces {
 			if p.magnetic {
-				move(p, 0, -1)
+				movePiece(p, 0, -1)
 				keypress = ebiten.KeyArrowUp
 				redraw = true
 			}
@@ -75,7 +83,7 @@ func handleKeyPress() bool {
 
 }
 
-func move(p *Piece, x, y int) bool {
+func movePiece(p *Piece, x, y int) bool {
 	if !p.moveable {
 		return false
 	}
@@ -94,7 +102,7 @@ func move(p *Piece, x, y int) bool {
 		if p != q {
 			if !q.tile {
 				if p.x == q.x && p.y == q.y {
-					if move(q, x, y) {
+					if movePiece(q, x, y) {
 						return true
 					} else {
 						p.x = p.currentX
@@ -108,7 +116,7 @@ func move(p *Piece, x, y int) bool {
 	return true
 }
 
-func updateLocations() {
+func updatePieceLocations() {
 	for _, p := range level.pieces {
 		p.currentX = p.x
 		p.currentY = p.y
@@ -127,7 +135,13 @@ func checkForPiecesOnTarget() {
 	}
 }
 
-func checkForLevelComplete() {
+func checkForLevelComplete(g *Game) {
+
+	// TODO: remove when I end with a splash screen
+	if level.final {
+		return
+	}
+
 	for _, p := range level.pieces {
 		if p.tile { // For now, this means it's a target
 			for _, q := range level.pieces {
@@ -139,8 +153,9 @@ func checkForLevelComplete() {
 			}
 		}
 	}
-	if level.next != nil {
-		level = *level.next
-		load()
-	}
+	g.splash = level.flag
+	g.timer = 300
+	g.level += 1
+	level = getRainbowLevel(g.level)
+	initializeLevel()
 }
