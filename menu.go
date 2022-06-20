@@ -13,24 +13,20 @@ type menuItem struct {
 	levelGenerator func(int) Level
 }
 
-var flags [4]*menuItem
+var flags [3]*menuItem
 var menuSelected int
 
 func init() {
-	flags = [4]*menuItem{
+	flags = [3]*menuItem{
 		{name: "rainbow",
 			levelGenerator: getRainbowLevel,
 			flagGenerator:  generateRainbowFlag,
 		},
-		{name: "trans",
+		{name: "rainbow",
 			levelGenerator: getRainbowLevel,
 			flagGenerator:  generateRainbowFlag,
 		},
-		{name: "nonbinary",
-			levelGenerator: getRainbowLevel,
-			flagGenerator:  generateRainbowFlag,
-		},
-		{name: "genderqueer",
+		{name: "rainbow",
 			levelGenerator: getRainbowLevel,
 			flagGenerator:  generateRainbowFlag,
 		},
@@ -41,7 +37,12 @@ func init() {
 func generateMenuImage() *ebiten.Image {
 
 	var menuWidth int
+	endgame := true
+
 	for _, flag := range flags {
+		if !flag.completed {
+			endgame = false
+		}
 		if mw := text.BoundString(*regular, flag.name).Dx(); mw > menuWidth {
 			menuWidth = mw
 		}
@@ -58,8 +59,12 @@ func generateMenuImage() *ebiten.Image {
 
 	var menu = ebiten.NewImage(w, h)
 	menu.Fill(bg)
-	menu.DrawImage(ebiten.NewImageFromImage(dc.Image()), nil)
-
+	if endgame {
+		message := "thank you for playing"
+		text.Draw(menu, message, *regular, w/2-text.BoundString(*regular, message).Dx()/2, 10+text.BoundString(*regular, message).Dy(), fg)
+	} else {
+		menu.DrawImage(ebiten.NewImageFromImage(dc.Image()), nil)
+	}
 	for i, flag := range flags {
 		if flag.completed {
 			flagWidth := 100
@@ -70,17 +75,17 @@ func generateMenuImage() *ebiten.Image {
 			text.Draw(menu, flag.name, *regular, w/2-text.BoundString(*regular, flag.name).Dx()/2, h*i/(len(flags)+1)+h/(len(flags)+1), fg)
 		}
 
-		if i == menuSelected && !flags[menuSelected].completed {
+		if i == menuSelected && !flags[menuSelected].completed && !endgame {
 			opts := &ebiten.DrawImageOptions{}
 			opts.GeoM.Translate(float64(20+w/2+menuWidth/2), float64(h*i/(len(flags)+1)+h/(len(flags)+1)-text.BoundString(*regular, "X").Dy()))
 			menu.DrawImage(generateRightArrow(), opts)
 		}
-		if i == menuSelected+1 {
+		if i == menuSelected+1 && !endgame {
 			opts := &ebiten.DrawImageOptions{}
 			opts.GeoM.Translate(float64(20+w/2+menuWidth/2), float64(h*i/(len(flags)+1)+h/(len(flags)+1)-text.BoundString(*regular, "X").Dy()))
 			menu.DrawImage(generateDownArrow(), opts)
 		}
-		if i == menuSelected-1 {
+		if i == menuSelected-1 && !endgame {
 			opts := &ebiten.DrawImageOptions{}
 			opts.GeoM.Translate(float64(20+w/2+menuWidth/2), float64(h*i/(len(flags)+1)+h/(len(flags)+1)-text.BoundString(*regular, "X").Dy()))
 			menu.DrawImage(generateUpArrow(), opts)

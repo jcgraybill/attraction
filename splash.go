@@ -33,13 +33,3 @@ func generateStartingSplashScreen() *ebiten.Image {
 
 	return splash
 }
-
-func generateFinalSplashScreen() *ebiten.Image {
-	var splash = ebiten.NewImage(w, h)
-	splash.Fill(bg)
-
-	message := "thanks for playing"
-	text.Draw(splash, message, *regular, w/2-text.BoundString(*regular, message).Dx()/2, h/2, fg)
-
-	return splash
-}

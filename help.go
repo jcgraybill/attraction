@@ -12,7 +12,7 @@ func generateHelpSplashScreen() *ebiten.Image {
 	splash.Fill(bg)
 
 	message := "this will be the help screen"
-	text.Draw(splash, message, *regular, w/2-text.BoundString(*regular, message).Dx()/2, h-10, fg)
+	text.Draw(splash, message, *regular, w/2-text.BoundString(*regular, message).Dx()/2, 10+text.BoundString(*regular, message).Dy(), fg)
 
 	return splash
 }

@@ -32,8 +32,8 @@ func initializeLevel() {
 }
 
 var last = Level{
-	label: "thanks for playing",
-	cells: 2,
+	label: "you should never see this level",
+	cells: 1,
 	moves: 0,
 	final: true,
 	flag:  ebiten.NewImage(w, h),
@@ -42,21 +42,6 @@ var last = Level{
 			imgsrc: func() *ebiten.Image { return generateGemImage(rainbowColors[0]) },
 			x:      0,
 			y:      0,
-		},
-		{
-			imgsrc: func() *ebiten.Image { return generateGemImage(rainbowColors[1]) },
-			x:      1,
-			y:      0,
-		},
-		{
-			imgsrc: func() *ebiten.Image { return generateGemImage(rainbowColors[4]) },
-			x:      0,
-			y:      1,
-		},
-		{
-			imgsrc: func() *ebiten.Image { return generateGemImage(rainbowColors[5]) },
-			x:      1,
-			y:      1,
 		},
 	},
 }
