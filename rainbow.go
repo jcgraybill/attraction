@@ -4,7 +4,6 @@ import (
 	"image/color"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/text"
 )
 
 var rainbowColors [6]color.RGBA
@@ -20,17 +19,13 @@ func init() {
 	}
 }
 
-// TODO: take w,h,segments parameters & just generate the flag itself
-
-func generateRainbowFlag(segments int) *ebiten.Image {
+func generateRainbowFlag(w, h, segments int) *ebiten.Image {
 
 	if segments > len(rainbowColors) {
 		segments = len(rainbowColors)
 	}
 
-	splash := ebiten.NewImage(w, h)
-	splash.Fill(bg)
-	flag := ebiten.NewImage(w, w*3/5)
+	flag := ebiten.NewImage(w, h)
 	flag.Fill(fg)
 
 	stripe := ebiten.NewImage(w, flag.Bounds().Dy()/6)
@@ -41,15 +36,7 @@ func generateRainbowFlag(segments int) *ebiten.Image {
 		stripeOpts.GeoM.Translate(0, float64(stripe.Bounds().Dy()))
 	}
 
-	opts := &ebiten.DrawImageOptions{}
-	opts.GeoM.Translate(0, float64(h/2-flag.Bounds().Dy()/2))
-
-	splash.DrawImage(flag, opts)
-
-	message := "press esc to continue"
-	text.Draw(splash, message, *regular, w/2-text.BoundString(*regular, message).Dx()/2, h-10, fg)
-
-	return splash
+	return flag
 }
 
 func getRainbowLevel(which int) Level {
@@ -59,7 +46,7 @@ func getRainbowLevel(which int) Level {
 			label: "level 1: life",
 			moves: 2,
 			cells: 4,
-			flag:  generateRainbowFlag(1),
+			flag:  generateFlagSplashScreen(1, generateRainbowFlag),
 			pieces: []*Piece{
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[0].color) },
@@ -95,7 +82,7 @@ func getRainbowLevel(which int) Level {
 			label: "level 2: healing",
 			moves: 6,
 			cells: 4,
-			flag:  generateRainbowFlag(2),
+			flag:  generateFlagSplashScreen(2, generateRainbowFlag),
 			pieces: []*Piece{
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[0].color) },
@@ -130,7 +117,7 @@ func getRainbowLevel(which int) Level {
 			label: "level 3: sunlight and nature",
 			moves: 6,
 			cells: 4,
-			flag:  generateRainbowFlag(4),
+			flag:  generateFlagSplashScreen(4, generateRainbowFlag),
 			pieces: []*Piece{
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[0].color) },
@@ -186,7 +173,7 @@ func getRainbowLevel(which int) Level {
 			label: "level 4: harmony and spirit",
 			moves: 11,
 			cells: 4,
-			flag:  generateRainbowFlag(6),
+			flag:  generateFlagSplashScreen(6, generateRainbowFlag),
 			pieces: []*Piece{
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[0].color) },

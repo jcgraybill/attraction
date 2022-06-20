@@ -23,14 +23,14 @@ func (g *Game) Update() error {
 			menuSelected -= 1
 			menuImage = generateMenuImage()
 		}
-		if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) {
+		if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) && !flags[menuSelected].completed {
 			g.menu = false
 			g.level = 0
 			level = flags[menuSelected].levelGenerator(g.level)
 			initializeLevel()
 		}
 		return nil
-	} else if handleKeyPress() {
+	} else if handleKeyPress(g) {
 		updatePieceLocations()
 		checkForPiecesOnTarget()
 		checkForLevelComplete(g)
@@ -38,13 +38,18 @@ func (g *Game) Update() error {
 	return nil
 }
 
-func handleKeyPress() bool {
+func handleKeyPress(g *Game) bool {
 	redraw := false
 	var keypress ebiten.Key
 
 	if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
 		popState(1)
 		return true
+	}
+
+	if inpututil.IsKeyJustPressed(ebiten.KeySlash) {
+		g.splashScreenImage = helpSplash
+		g.splashScreenCountdown = 1200
 	}
 
 	if level.moves == 0 {
@@ -171,6 +176,7 @@ func checkForLevelComplete(g *Game) {
 	if level.final {
 		g.menu = true
 		flags[menuSelected].completed = true
+		menuImage = generateMenuImage()
 		return
 	}
 	initializeLevel()

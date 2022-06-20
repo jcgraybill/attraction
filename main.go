@@ -28,6 +28,7 @@ func main() {
 	ebiten.SetWindowTitle("m")
 	ebiten.SetWindowSize(w, h)
 	menuImage = generateMenuImage()
+	helpSplash = generateHelpSplashScreen()
 
 	err := ebiten.RunGame(&Game{
 		splashScreenImage:     generateStartingSplashScreen(),
