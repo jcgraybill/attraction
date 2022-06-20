@@ -8,8 +8,10 @@ import (
 )
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	if g.timer > 0 {
-		screen.DrawImage(g.splash, nil)
+	if g.splashScreenCountdown > 0 {
+		screen.DrawImage(g.splashScreenImage, nil)
+	} else if g.menu {
+		screen.DrawImage(menuImage, nil)
 	} else {
 
 		screen.Fill(bg)

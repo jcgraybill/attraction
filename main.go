@@ -15,23 +15,24 @@ var fg = color.Black
 
 var level Level
 var state []*State
+var menuImage *ebiten.Image
 
 type Game struct {
-	splash *ebiten.Image
-	timer  int
-	level  int
+	splashScreenImage     *ebiten.Image
+	splashScreenCountdown int
+	level                 int
+	menu                  bool
 }
 
 func main() {
 	ebiten.SetWindowTitle("m")
 	ebiten.SetWindowSize(w, h)
-	level = getRainbowLevel(0)
-	initializeLevel()
+	menuImage = generateMenuImage()
 
 	err := ebiten.RunGame(&Game{
-		splash: generateStartingSplashScreen(),
-		timer:  240,
-		level:  0,
+		splashScreenImage:     generateStartingSplashScreen(),
+		splashScreenCountdown: 240,
+		menu:                  true,
 	})
 	if err != nil {
 		panic(err)

@@ -20,6 +20,8 @@ func init() {
 	}
 }
 
+// TODO: take w,h,segments parameters & just generate the flag itself
+
 func generateRainbowFlag(segments int) *ebiten.Image {
 
 	if segments > len(rainbowColors) {

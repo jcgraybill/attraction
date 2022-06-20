@@ -7,13 +7,29 @@ import (
 
 func (g *Game) Update() error {
 
-	if g.timer > 0 {
-		g.timer -= 1
+	if g.splashScreenCountdown > 0 {
+		g.splashScreenCountdown -= 1
 
 		if inpututil.IsKeyJustPressed(ebiten.KeyEscape) {
-			g.timer = 0
+			g.splashScreenCountdown = 0
 		}
 
+	} else if g.menu {
+		if inpututil.IsKeyJustPressed(ebiten.KeyArrowDown) && menuSelected < len(flags)-1 {
+			menuSelected += 1
+			menuImage = generateMenuImage()
+		}
+		if inpututil.IsKeyJustPressed(ebiten.KeyArrowUp) && menuSelected > 0 {
+			menuSelected -= 1
+			menuImage = generateMenuImage()
+		}
+		if inpututil.IsKeyJustPressed(ebiten.KeyArrowRight) {
+			g.menu = false
+			g.level = 0
+			level = flags[menuSelected].levelGenerator(g.level)
+			initializeLevel()
+		}
+		return nil
 	} else if handleKeyPress() {
 		updatePieceLocations()
 		checkForPiecesOnTarget()
@@ -137,11 +153,6 @@ func checkForPiecesOnTarget() {
 
 func checkForLevelComplete(g *Game) {
 
-	// TODO: remove when I end with a splash screen
-	if level.final {
-		return
-	}
-
 	for _, p := range level.pieces {
 		if p.tile { // For now, this means it's a target
 			for _, q := range level.pieces {
@@ -153,9 +164,14 @@ func checkForLevelComplete(g *Game) {
 			}
 		}
 	}
-	g.splash = level.flag
-	g.timer = 300
+	g.splashScreenImage = level.flag
+	g.splashScreenCountdown = 300
 	g.level += 1
 	level = getRainbowLevel(g.level)
+	if level.final {
+		g.menu = true
+		flags[menuSelected].completed = true
+		return
+	}
 	initializeLevel()
 }
