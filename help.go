@@ -90,7 +90,7 @@ func generateHelpImageThree() *ebiten.Image {
 	img.DrawImage(generateMagnetImage(), nil)
 	opts := &ebiten.DrawImageOptions{}
 	opts.GeoM.Translate(30, 0)
-	img.DrawImage(generateMagnetImage(), opts)
+	img.DrawImage(generateGemImage(color.RGBA{R: 255, G: 0, B: 0, A: 255}), opts)
 	opts.GeoM.Translate(30, 7)
 	img.DrawImage(generateRightArrow(), opts)
 	return img
