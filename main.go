@@ -12,6 +12,7 @@ const bs = 360
 
 var bg = color.White
 var fg = color.Black
+var white = color.RGBA{R: 200, G: 200, B: 200, A: 255}
 
 var level Level
 var state []*State

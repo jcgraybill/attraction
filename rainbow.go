@@ -171,7 +171,7 @@ func getRainbowLevel(which int) Level {
 		},
 		{
 			label: "level 4: harmony and spirit",
-			moves: 11,
+			moves: 10,
 			cells: 4,
 			flag:  generateFlagSplashScreen(6, generateRainbowFlag),
 			pieces: []*Piece{

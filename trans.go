@@ -151,8 +151,8 @@ func getTransLevel(which int) Level {
 
 		{
 			label: "level 2: transitioning",
-			moves: 15,
-			cells: 6,
+			moves: 11,
+			cells: 5,
 			flag:  generateFlagSplashScreen(3, generateTransFlag),
 			pieces: []*Piece{
 				{
@@ -160,14 +160,14 @@ func getTransLevel(which int) Level {
 					x:      1,
 					y:      2,
 					tile:   true,
-					color:  color.RGBA{R: 200, G: 200, B: 200, A: 255},
+					color:  white,
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[1].color) },
 					x:        3,
 					y:        2,
 					moveable: true,
-					color:    color.RGBA{R: 200, G: 200, B: 200, A: 255},
+					color:    white,
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateMagnetImage() },
@@ -203,11 +203,6 @@ func getTransLevel(which int) Level {
 					imgsrc: func() *ebiten.Image { return generatePostImage() },
 					x:      2,
 					y:      4,
-				},
-				{
-					imgsrc: func() *ebiten.Image { return generatePostImage() },
-					x:      1,
-					y:      5,
 				},
 			},
 		},
