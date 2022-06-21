@@ -13,22 +13,18 @@ type menuItem struct {
 	levelGenerator func(int) Level
 }
 
-var flags [3]*menuItem
+var flags [2]*menuItem
 var menuSelected int
 
 func init() {
-	flags = [3]*menuItem{
+	flags = [2]*menuItem{
 		{name: "rainbow",
 			levelGenerator: getRainbowLevel,
 			flagGenerator:  generateRainbowFlag,
 		},
-		{name: "rainbow",
-			levelGenerator: getRainbowLevel,
-			flagGenerator:  generateRainbowFlag,
-		},
-		{name: "rainbow",
-			levelGenerator: getRainbowLevel,
-			flagGenerator:  generateRainbowFlag,
+		{name: "trans",
+			levelGenerator: getTransLevel,
+			flagGenerator:  generateTransFlag,
 		},
 	}
 

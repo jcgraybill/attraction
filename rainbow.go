@@ -28,7 +28,7 @@ func generateRainbowFlag(w, h, segments int) *ebiten.Image {
 	flag := ebiten.NewImage(w, h)
 	flag.Fill(fg)
 
-	stripe := ebiten.NewImage(w, flag.Bounds().Dy()/6)
+	stripe := ebiten.NewImage(w, flag.Bounds().Dy()/len(rainbowColors))
 	stripeOpts := &ebiten.DrawImageOptions{}
 	for i := 0; i < segments; i++ {
 		stripe.Fill(rainbowColors[i])
@@ -89,14 +89,14 @@ func getRainbowLevel(which int) Level {
 					x:      2,
 					y:      1,
 					tile:   true,
-					color:  color.RGBA{R: 253, G: 165, B: 7, A: 255},
+					color:  rainbowColors[1],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[1].color) },
 					x:        1,
 					y:        2,
 					moveable: true,
-					color:    color.RGBA{R: 253, G: 165, B: 7, A: 255},
+					color:    rainbowColors[1],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateMagnetImage() },
@@ -124,28 +124,28 @@ func getRainbowLevel(which int) Level {
 					x:      1,
 					y:      0,
 					tile:   true,
-					color:  color.RGBA{R: 255, G: 255, B: 11, A: 255},
+					color:  rainbowColors[2],
 				},
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[1].color) },
 					x:      0,
 					y:      0,
 					tile:   true,
-					color:  color.RGBA{R: 17, G: 131, B: 1, A: 255},
+					color:  rainbowColors[3],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[2].color) },
 					x:        1,
 					y:        1,
 					moveable: true,
-					color:    color.RGBA{R: 255, G: 255, B: 11, A: 255},
+					color:    rainbowColors[2],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[3].color) },
 					x:        0,
 					y:        1,
 					moveable: true,
-					color:    color.RGBA{R: 17, G: 131, B: 1, A: 255},
+					color:    rainbowColors[3],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateMagnetImage() },
@@ -180,28 +180,28 @@ func getRainbowLevel(which int) Level {
 					x:      3,
 					y:      2,
 					tile:   true,
-					color:  color.RGBA{R: 0, G: 0, B: 255, A: 255},
+					color:  rainbowColors[4],
 				},
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[1].color) },
 					x:      2,
 					y:      1,
 					tile:   true,
-					color:  color.RGBA{R: 117, G: 7, B: 135, A: 255},
+					color:  rainbowColors[5],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[2].color) },
 					x:        1,
 					y:        2,
 					moveable: true,
-					color:    color.RGBA{R: 0, G: 0, B: 255, A: 255},
+					color:    rainbowColors[4],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[3].color) },
 					x:        1,
 					y:        1,
 					moveable: true,
-					color:    color.RGBA{R: 117, G: 7, B: 135, A: 255},
+					color:    rainbowColors[5],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateMagnetImage() },

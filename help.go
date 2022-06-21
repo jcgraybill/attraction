@@ -8,6 +8,9 @@ import (
 var helpSplash *ebiten.Image
 
 func generateHelpSplashScreen() *ebiten.Image {
+	//	var topics [6]string
+	//	var images [6]*ebiten.Image
+
 	splash := ebiten.NewImage(w, h)
 	splash.Fill(bg)
 

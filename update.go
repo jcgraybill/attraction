@@ -172,7 +172,7 @@ func checkForLevelComplete(g *Game) {
 	g.splashScreenImage = level.flag
 	g.splashScreenCountdown = 300
 	g.level += 1
-	level = getRainbowLevel(g.level)
+	level = flags[menuSelected].levelGenerator(g.level)
 	if level.final {
 		g.menu = true
 		flags[menuSelected].completed = true
