@@ -96,6 +96,9 @@ func handleKeyPress(g *Game) bool {
 		}
 	}
 
+	// TODO: if no pieces have actually moved as a result
+	// of the keypress, don't count it as a move.
+
 	if redraw {
 		pushState(keypress)
 		level.moves -= 1

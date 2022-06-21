@@ -29,6 +29,11 @@ func main() {
 	ebiten.SetWindowTitle("m")
 	ebiten.SetWindowSize(w, h)
 	menuImage = generateMenuImage()
+
+	// we're going to use the functions that generate
+	// pieces for the help screen, and that requires a
+	// level in order to know how big to make them
+	level = Level{cells: 12}
 	helpSplash = generateHelpSplashScreen()
 
 	err := ebiten.RunGame(&Game{

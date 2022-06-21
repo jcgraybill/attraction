@@ -1,5 +1,9 @@
 package main
 
+// TODO: it might be more clear if the up/down arrows are
+// on the ends of the line rather than next to the flag
+// names. Up/down would need to skip any completed levels.
+
 import (
 	"github.com/fogleman/gg"
 	"github.com/hajimehoshi/ebiten/v2"
