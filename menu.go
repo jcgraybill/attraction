@@ -17,11 +17,11 @@ type menuItem struct {
 	levelGenerator func(int) Level
 }
 
-var flags [3]*menuItem
+var flags [4]*menuItem
 var menuSelected int
 
 func init() {
-	flags = [3]*menuItem{
+	flags = [4]*menuItem{
 		{name: "rainbow",
 			levelGenerator: getRainbowLevel,
 			flagGenerator:  generateRainbowFlag,
@@ -33,6 +33,10 @@ func init() {
 		{name: "nonbinary",
 			levelGenerator: getNonbinaryLevel,
 			flagGenerator:  generateNonbinaryFlag,
+		},
+		{name: "progressive",
+			levelGenerator: getProgressiveLevel,
+			flagGenerator:  generateProgressiveFlag,
 		},
 	}
 	menuSelected = 0
