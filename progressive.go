@@ -3,6 +3,7 @@ package main
 import (
 	"image/color"
 
+	"github.com/fogleman/gg"
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
@@ -28,12 +29,28 @@ func generateProgressiveFlag(w, h, segments int) *ebiten.Image {
 	flag := ebiten.NewImage(w, h)
 	flag.Fill(fg)
 
-	stripe := ebiten.NewImage(w, flag.Bounds().Dy()/len(progressiveColors))
+	stripe := ebiten.NewImage(w, flag.Bounds().Dy()/6)
 	stripeOpts := &ebiten.DrawImageOptions{}
-	for i := 0; i < len(progressiveColors); i++ {
+	for i := 0; i < 6; i++ {
 		stripe.Fill(progressiveColors[i])
 		flag.DrawImage(stripe, stripeOpts)
 		stripeOpts.GeoM.Translate(0, float64(stripe.Bounds().Dy()))
+	}
+
+	opts := &ebiten.DrawImageOptions{}
+	opts.GeoM.Translate(0, float64(-h/2))
+
+	for i := 6; i < 11; i++ {
+		dc := gg.NewContext(h, h*2)
+
+		dc.MoveTo(0, 0)
+		dc.LineTo(float64(h), float64(h))
+		dc.LineTo(0, float64(h*2))
+		dc.LineTo(0, 0)
+		dc.SetColor(progressiveColors[i])
+		dc.Fill()
+		opts.GeoM.Translate(float64(-1*flag.Bounds().Dy()/6), 0)
+		flag.DrawImage(ebiten.NewImageFromImage(dc.Image()), opts)
 	}
 
 	return flag
