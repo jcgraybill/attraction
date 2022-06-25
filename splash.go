@@ -23,7 +23,6 @@ func generateStartingSplashScreen() *ebiten.Image {
 	}
 
 	opts := &ebiten.DrawImageOptions{}
-	// TODO resize by hand to anti-alias
 	opts.GeoM.Scale(float64(w)/float64(img.Bounds().Dx()), float64(w)/float64(img.Bounds().Dx()))
 	opts.GeoM.Translate(0, float64(h/2)-(float64(img.Bounds().Dy())*float64(w)/float64(img.Bounds().Dx()))/2)
 	splash.DrawImage(ebiten.NewImageFromImage(img), opts)
