@@ -40,6 +40,7 @@ func generateNonbinaryFlag(w, h, segments int) *ebiten.Image {
 func getNonbinaryLevel(which int) Level {
 
 	nonbinaryLevels := [2]Level{
+
 		{
 			label: "level 1: separate and multiple",
 			moves: 12,
@@ -90,30 +91,31 @@ func getNonbinaryLevel(which int) Level {
 		},
 		{
 			label: "level 2: mix and without",
-			moves: 1,
-			cells: 3,
+			moves: 50,
+			cells: 6,
 			flag:  generateFlagSplashScreen(4, generateNonbinaryFlag),
 			pieces: []*Piece{
 				{
 					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[0].color) },
-					x:      2,
-					y:      0,
+					x:      3,
+					y:      2,
 					tile:   true,
 					color:  nonbinaryColors[2],
 				},
+
 				{
-					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[1].color) },
-					x:        1,
-					y:        0,
-					moveable: true,
-					color:    nonbinaryColors[2],
-				},
-				{
-					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[2].color) },
-					x:      2,
+					imgsrc: func() *ebiten.Image { return generateTargetImage(level.pieces[1].color) },
+					x:      5,
 					y:      1,
 					tile:   true,
 					color:  nonbinaryColors[3],
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[2].color) },
+					x:        2,
+					y:        3,
+					moveable: true,
+					color:    nonbinaryColors[2],
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateGemImage(level.pieces[3].color) },
@@ -124,17 +126,95 @@ func getNonbinaryLevel(which int) Level {
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateMagnetImage() },
-					x:        0,
-					y:        0,
+					x:        4,
+					y:        5,
 					moveable: true,
 					magnetic: true,
 				},
 				{
 					imgsrc:   func() *ebiten.Image { return generateMagnetImage() },
 					x:        0,
-					y:        1,
+					y:        2,
 					moveable: true,
 					magnetic: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        2,
+					y:        1,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        3,
+					y:        1,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        4,
+					y:        1,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        1,
+					y:        2,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        2,
+					y:        2,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        4,
+					y:        2,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        1,
+					y:        3,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        3,
+					y:        3,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        4,
+					y:        3,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        1,
+					y:        4,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        2,
+					y:        4,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        3,
+					y:        4,
+					moveable: true,
+				},
+				{
+					imgsrc:   func() *ebiten.Image { return generateBlockImage() },
+					x:        4,
+					y:        4,
+					moveable: true,
 				},
 			},
 		},
