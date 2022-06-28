@@ -30,7 +30,7 @@ jobs:
         go-version: 1.17
     - name: Build Windows exe
       shell: bash
-      run: go build
+      run: go build -o attraction.exe
     - name: Upload Windows exe
       uses: actions/upload-artifact@v2.2.4
       with:
@@ -51,7 +51,7 @@ jobs:
         go-version: 1.17
     - name: Build Mac exe
       shell: bash
-      run: go build
+      run: go build -o attraction
     - name: Tar it up
       shell: bash
       run: tar -zcvf attraction-mac.tar.gz attraction LICENSE
@@ -76,7 +76,7 @@ jobs:
       run: sudo apt-get -y install libgl1-mesa-dev xorg-dev libasound2-dev
     - name: Build Linux exe
       shell: bash
-      run: go build -v
+      run: go build -v -o attraction
     - name: Tar it up
       shell: bash
       run: tar -zcvf attraction-lin.tar.gz attraction LICENSE
