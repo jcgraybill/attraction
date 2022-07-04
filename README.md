@@ -8,5 +8,5 @@ It's a [sokoban](https://en.wikipedia.org/wiki/Sokoban)-like puzzle game, where 
 
 Press arrow keys to pulse an electromagnet on the corresponding edge of the board: all the magnetic pieces will move one cell in the direction of that magnet if they are able, pushing any moveable pieces along the way.
 
-
+The Ebitengine logo by Hajime Hoshi is licensed under [the Creative Commons Attribution-NoDerivatives 4.0](https://creativecommons.org/licenses/by-nd/4.0/). [Righteous](https://fonts.google.com/specimen/Righteous) typeface licensed under the [Open Font License](http://scripts.sil.org/OFL).
  
