@@ -14,8 +14,6 @@ type Level struct {
 	boardOpts *ebiten.DrawImageOptions
 
 	flag *ebiten.Image
-
-	next *Level
 }
 
 func initializeLevel() {

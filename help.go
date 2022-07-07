@@ -18,7 +18,7 @@ func generateHelpSplashScreen() *ebiten.Image {
 	topics = [6]string{
 		"use arrow keys to pulse\nan electromagnet.",
 		"magnetic pieces will slide\none cell in that direction.",
-		"moving pieces push other\nmoveable pieces.",
+		"moving pieces push other\nmovable pieces.",
 		"push colored circles into\nmatching slots to win.",
 		"you can push hollow\nblocks.",
 		"black squares don't move.",
