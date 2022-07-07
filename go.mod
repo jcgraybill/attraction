@@ -1,4 +1,4 @@
-module github.com/jcgraybill/m
+module github.com/jcgraybill/attraction
 
 go 1.18
 
