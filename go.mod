@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/fogleman/gg v1.3.0
 	github.com/hajimehoshi/ebiten/v2 v2.4.11
-	golang.org/x/image v0.1.0
+	golang.org/x/image v0.5.0
 )
 
 require (
@@ -17,5 +17,5 @@ require (
 	golang.org/x/exp/shiny v0.0.0-20221031165847-c99f073a8326 // indirect
 	golang.org/x/mobile v0.0.0-20221020085226-b36e6246172e // indirect
 	golang.org/x/sys v0.1.0 // indirect
-	golang.org/x/text v0.4.0 // indirect
+	golang.org/x/text v0.7.0 // indirect
 )
