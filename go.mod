@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/fogleman/gg v1.3.0
 	github.com/hajimehoshi/ebiten/v2 v2.4.18
-	golang.org/x/image v0.5.0
+	golang.org/x/image v0.6.0
 )
 
 require (
@@ -14,8 +14,8 @@ require (
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/hajimehoshi/file2byteslice v1.0.0 // indirect
 	github.com/jezek/xgb v1.1.0 // indirect
-	golang.org/x/exp/shiny v0.0.0-20230224173230-c95f2b4c22f2 // indirect
+	golang.org/x/exp/shiny v0.0.0-20230310171629-522b1b587ee0 // indirect
 	golang.org/x/mobile v0.0.0-20230301163155-e0f57694e12c // indirect
-	golang.org/x/sys v0.5.0 // indirect
-	golang.org/x/text v0.7.0 // indirect
+	golang.org/x/sys v0.6.0 // indirect
+	golang.org/x/text v0.8.0 // indirect
 )
