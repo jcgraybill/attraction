@@ -26,7 +26,7 @@ type Game struct {
 }
 
 func main() {
-	ebiten.SetWindowTitle("m")
+	ebiten.SetWindowTitle("attraction")
 	ebiten.SetWindowSize(w, h)
 	menuImage = generateMenuImage()
 
