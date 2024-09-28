@@ -117,15 +117,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Download Windows binary
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-win
     - name: Download Linux binary
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-lin
     - name: Download Mac binary
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-mac
     - name: Upload beta testing bundle
@@ -145,7 +145,7 @@ jobs:
     needs: build-win
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-win
     - uses: josephbmanley/butler-publish-itchio-action@master
@@ -163,7 +163,7 @@ jobs:
     needs: build-mac
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-mac
     - name: Extract tarball
@@ -184,7 +184,7 @@ jobs:
     needs: build-lin
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-lin
     - name: Extract tarball
@@ -205,7 +205,7 @@ jobs:
     needs: build-web
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v2
+    - uses: actions/download-artifact@v4.1.7
       with:
         name: attraction-web
     - uses: josephbmanley/butler-publish-itchio-action@master
